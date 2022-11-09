@@ -9,7 +9,7 @@ pygame.init()
 clock=pygame.time.Clock()
 screen_width=1200
 screen_height=650
-screen=pygame.display.set_mode((screen_width,screen_height),RESIZABLE)
+screen=pygame.display.set_mode((screen_width,screen_height),SCALED|RESIZABLE)
 white=(255,255,255)
 black=(0,0,0)
 this_month=time.localtime()
