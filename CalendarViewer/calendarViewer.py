@@ -9,7 +9,7 @@ pygame.init()
 clock=pygame.time.Clock()
 screen_width=1200
 screen_height=650
-screen=pygame.display.set_mode((screen_width,screen_height),SCALED|RESIZABLE)
+screen=pygame.display.set_mode((screen_width,screen_height),RESIZABLE)
 white=(255,255,255)
 black=(0,0,0)
 this_month=time.localtime()
@@ -35,41 +35,41 @@ cal=cal.splitlines()
 cal.pop(0)
 dates=cal[0]
 dates=dates.split(' ')
-raw2=cal[1]
-raw2=raw2.split(' ')
+row2=cal[1]
+row2=row2.split(' ')
 cal.pop(0)
 r_txt=[]
 
-def calculate(raw):
-	raw_txt=[]
-	if len(raw)%2==0:
-		raw=[raw[i] for i in range(len(raw)) if (i+1)%2==0]
+def calculate(row):
+	row_txt=[]
+	if len(row)%2==0:
+		row=[row[i] for i in range(len(row)) if (i+1)%2==0]
 	else:
-		raw=[raw[i] for i in range(len(raw)) if (i+1)%2!=0]
-	x,y=0,len(raw)
+		row=[row[i] for i in range(len(row)) if (i+1)%2!=0]
+	x,y=0,len(row)
 	x2,y2=x,y
 	x3,y3=x,y
-	raw1=[item for item in raw if item!='']
-	n=7-len(raw1)
+	row1=[item for item in row if item!='']
+	n=7-len(row1)
 	s=['' for i in range(n)]					
-	if raw[x2]=='' and raw[-1]!='':
-		while raw[x2]=='':
+	if row[x2]=='' and row[-1]!='':
+		while row[x2]=='':
 			x2+=1
-		new=s[:]+raw[x2:]
-		raw_txt=new
-	elif raw[x3]!='' and raw[-1]=='':
-		while raw[x3]!='':
+		new=s[:]+row[x2:]
+		row_txt=new
+	elif row[x3]!='' and row[-1]=='':
+		while row[x3]!='':
 			x3+=1
-		new=raw[:x3]+s[:]
-		raw_txt=new
+		new=row[:x3]+s[:]
+		row_txt=new
 	else:
-		raw_txt=raw[:]
-	r_txt.append(raw_txt)
-calculate(raw2)
+		row_txt=row[:]
+	r_txt.append(row_txt)
+calculate(row2)
 new=[]
-raw1=cal[1]
-raw1=raw1.split(' ')
-raw1=[item for item in raw1 if item!='']
+row1=cal[1]
+row1=row1.split(' ')
+row1=[item for item in row1 if item!='']
 n1=3
 if len(cal)==6:
 	n1=4
@@ -82,7 +82,7 @@ for i in range(n1):
 
 new=[item for item in new if item!='']
 x=r_txt[0]
-all_txt=dates+r_txt[0]+raw1+new
+all_txt=dates+r_txt[0]+row1+new
 t=all_txt.index(str(today))
 
 all_rect=[]
