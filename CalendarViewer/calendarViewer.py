@@ -4,6 +4,7 @@
 import pygame,sys
 from pygame.locals import*
 import time
+import datetime
 import calendar
 pygame.init()
 clock=pygame.time.Clock()
@@ -12,11 +13,8 @@ screen_height=650
 screen=pygame.display.set_mode((screen_width,screen_height),RESIZABLE)
 white=(255,255,255)
 black=(0,0,0)
-this_month=time.localtime()
-month=this_month.tm_mon
-year=this_month.tm_year
-day=this_month.tm_yday
-today=this_month.tm_mday
+
+
 shadow=pygame.image.load('shadow.png') 
 shadow1=pygame.image.load('shadow1.png') 
 background1=pygame.image.load('background11.png')
@@ -26,11 +24,19 @@ shadow_background=pygame.image.load('shadow_background.png')
 icon=pygame.image.load('icon.jpg')
 pygame.display.set_icon(icon)        
 
+months=['January','February','March','April','May','June','July','August','September','October','November','December']
+days={'Su':'Sunday','Mo':'Monday','Tu':'Tuesday','We':'Wednesday','Th':'Thursday','Fr':'Friday','Sa':'Saturday'}
+
+this_month=time.localtime()
+month=this_month.tm_mon
+year=this_month.tm_year
+day=this_month.tm_yday
+today=this_month.tm_mday
 
 calendar.setfirstweekday(calendar.SUNDAY)
 cal=calendar.month(year,month)
-months=['January','February','March','April','May','June','July','August','September','October','November','December']
-days={'Su':'Sunday','Mo':'Monday','Tu':'Tuesday','We':'Wednesday','Th':'Thursday','Fr':'Friday','Sa':'Saturday'}
+
+
 cal=cal.splitlines()
 cal.pop(0)
 dates=cal[0]
@@ -39,6 +45,7 @@ row2=cal[1]
 row2=row2.split(' ')
 cal.pop(0)
 r_txt=[]
+
 
 def calculate(row):
 	row_txt=[]
@@ -167,6 +174,10 @@ txt=''
 n=0
 program_running=True
 while program_running:
+	now=datetime.datetime.now()
+	if today!=now.day:
+		pygame.quit()
+		sys.exit()
 	pygame.display.set_caption(str(time.ctime())+'    '+txt)
 	if len(txt)<x:
 		txt=quote[:int(n)]
