@@ -1,4 +1,4 @@
-#  Copyright 2022 Mahid
+#  Copyright 2022-2023 Mahid
 #  This program is distributed in the hope that it will be useful,
 #  but WITHOUT ANY WARRANTY
 import pygame,sys
@@ -21,7 +21,7 @@ background1=pygame.image.load('background11.png')
 background_main=pygame.image.load('background_main.png')
 shadow11=pygame.image.load('shadow11.png')
 shadow_background=pygame.image.load('shadow_background.png')
-icon=pygame.image.load('icon.jpg')
+icon=pygame.image.load('icon.png')
 pygame.display.set_icon(icon)        
 
 months=['January','February','March','April','May','June','July','August','September','October','November','December']
@@ -129,8 +129,7 @@ class ShowTxt():
 		screen.blit(self.button_txt,txt_rect)
 
 def draw_txt():
-	screen.blit(background_main,(-10,0))
-	screen.blit(background1,(50,50))
+
 	for i in range(len(all_txt)):
 		a=all_rect[i]
 		screen.blit(shadow,(a[0],a[1]))
@@ -168,7 +167,7 @@ txt1=t_day+' '+str(today)+' '+months[month-1]+' '+str(year)
 def detail():
 	screen.blit(shadow1,(35,35));ShowTxt(txt1,(370,40,20,40),r=False);ShowTxt(txt,(520,580,250,40),font_s=20,r=False)
 
-quote='“If you are depressed you are living in the past. If you are anxious you are living in the future. If you are at peace you are living in the present.”― Lao Tzu                '
+quote='“If you are depressed you are living in the past. If you are anxious you are living in the future. If you are at peace you are living in the present.”  Lao Tzu                '
 x=len(quote)
 txt=''
 n=0
@@ -190,10 +189,16 @@ while program_running:
 		if event.type==QUIT:
 			pygame.quit()
 			sys.exit()
+		if event.type==pygame.VIDEORESIZE:
+			screen_width,screen_height=event.size
+			background_main=pygame.transform.scale(background_main,(screen_width+50,screen_height+50))
 		mouse_position=pygame.mouse.get_pos()
 	screen.fill(white)
-	screen.blit(shadow_background,(600,3))
+
+	screen.blit(shadow_background,(600,0))
 	screen.blit(shadow11,(600,300))
+	screen.blit(background_main,(-10,-10))
+	screen.blit(background1,(50,50))
 	draw_txt()
 	detail()
 	pygame.display.update()
